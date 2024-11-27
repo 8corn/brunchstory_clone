@@ -9,7 +9,21 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+	
+	
   <body>
+	  <div>
+		  <% if account_signed_in? %>
+			  <%= link_to "회원정보", edit_account_registration_path %> |
+			  <%= link_to "로그아웃", destroy_account_session_path, mathod: :delete %> |
+			  아이디 : <%= current_account.email %> |
+			  유저 NO. : <%= current_account.id %>
+		  <% else %>
+			  <%= link_to "로그인", account_session_path %>
+			  <%= link_to "회원가입", "/accounts/signup" %>
+		  <% end %>
+	  </div>
+	  <hr />
     <%= yield %>
   </body>
 </html>
