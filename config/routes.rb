@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 	
 	resources :categories do
 		resources :lists
-		resources :posts, only: [:index]
+		resources :posts, only: [:index, :create, :new]
 	end
 	resources :posts, only: [:show] do
 		resources :comments, only: [:create, :destroy]
@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 		
 	resources :follows
   	resources :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 	
 	root 'categories#index'
 end
