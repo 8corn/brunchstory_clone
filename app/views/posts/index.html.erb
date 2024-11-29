@@ -13,6 +13,12 @@
   </thead>
 
   <tbody>
+	  <h2>포스트 목록</h2>
+		<% @category.posts.each do |post| %>
+		  <div>
+			<%= link_to post.title, category_post_path(@category, post) %>
+		  </div>
+		<% end %>
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.title %></td>

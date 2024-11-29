@@ -5,5 +5,15 @@
   <%= @category.name %>
 </p>
 
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
+<h2>새로운 포스트 작성</h2>
+<%= form_with(model: [@category, Post.new], local: true) do |form| %>
+  <div>
+    <%= form.label :title, "포스트 제목" %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :content, "내용" %>
+    <%= form.text_area :content %>
+  </div>
+  <%= form.submit "포스트 작성" %>
+<% end %>

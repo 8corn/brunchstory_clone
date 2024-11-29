@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :accounts
 	
 	resources :categories do
+		resources :lists
 		resources :posts, only: [:index]
 	end
 	resources :posts, only: [:show] do

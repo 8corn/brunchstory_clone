@@ -17,7 +17,7 @@
           <span class="part">서랍 속 간직하고 있는 글과 감성을.</span>
          </p>
   	  </header>
-    <% @categories.each do |category| %>
+   
 		<h1>카테고리</h1>
 	  <div class="categories-grid">
 		  <% @categories.each_slice(5) do |row| %>
@@ -30,8 +30,6 @@
 				</div>
 		  	<% end %>
 		  </div>
-	  </div>
-    <% end %>
   </tbody>
 </table>
 
