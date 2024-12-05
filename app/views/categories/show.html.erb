@@ -1,28 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>카테고리 :</strong>
   <%= @category.name %>
 </p>
 
-<h2>포스트 작성</h2>
+<%= link_to '글 작성', new_category_post_path(@category), class: 'write_btn' %>
 
-	<%= form_with(model: [@category, Post.new], local: true) do |form| %>
-	  <div>
-		<%= form.label :title, "제목" %>
-		<%= form.text_field :title %>
-	  </div>
-	  <div>
-		<%= form.label :content, "내용" %>
-		<%= form.text_area :content %>
-	  </div>
-	  <%= form.submit "글 작성" %>
-	<% end %>
-
-<h2>포스트 목록</h2>
-	<% @category.posts.each do |post| %>
-	  <div>
-		<h3><%= link_to post.title, post_path(post) %></h3>
-		<p><%= post.content %></p>
-	  </div>
-	<% end %>
+<h3>게시글 목록</h3>
+<% @category.posts.each do |post| %>
+  <div class="post">
+	  <h3><%= link_to post.title, category_post_path(@category, post) %></h3>
+	  <p><%= truncate(post.content, length: 300) %></p>
+	</div>
+<% end %>

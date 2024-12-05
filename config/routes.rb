@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 	
 	resources :categories do
 		resources :lists
-		resources :posts, only: [:index, :create, :new]
+		resources :posts, only: [:index, :create, :new, :show]
 	end
 	resources :posts, only: [:show] do
 		resources :comments, only: [:create, :destroy]

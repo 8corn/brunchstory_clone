@@ -1,5 +1,7 @@
 class FollowsController < ApplicationController
   before_action :set_follow, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+	
 
   # GET /follows
   # GET /follows.json

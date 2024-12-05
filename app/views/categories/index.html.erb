@@ -1,15 +1,12 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" class="alter alter-info"><%= notice %></p>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
+<table class="table table-striped">
+  <thead class="thead-dark">
+	  <h3 class="my-4 navbar navbar-expand-lg bg-dark navbar-brand" data-bs-theme="dark">BrunchStory</h3>
   </thead>
 
   <tbody>
 	  <header>
-      <h1 class="logo">BrunchStory</h1>
 		  <h3 class="tit_brunch">작품이 되는 이야기, 브런치스토리<span class="ico_brunch ico_logo"></span></h3>
 		  <p class="desc_brunch">
           <span class="part">브런치스토리에 담긴 아름다운 작품을 감상해 보세요.<br></span>
@@ -17,10 +14,8 @@
           <span class="part">서랍 속 간직하고 있는 글과 감성을.</span>
          </p>
   	  </header>
-	  
-	  <%= link_to '글 작성', new_category_post_path(@category), class: 'write_btn' %>
    
-		<h1>카테고리</h1>
+	<h4 class="category_title_header">카테고리</h4>
 	  <div class="categories-grid">
 		  <% @categories.each_slice(5) do |row| %>
 		  	<div class="row">

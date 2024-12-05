@@ -11,7 +11,8 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
+    @category = Category.find(params[:category_id])
+	@post = @category.posts.build
   end
 
   def edit
@@ -20,11 +21,12 @@ class PostsController < ApplicationController
   def create
     @category = Category.find(params[:category_id])
     @post = @category.posts.new(post_params)
+	  
     if @post.save
-      redirect_to category_path(@category), notice: "포스트 작성 완료되었습니다."
+      redirect_to category_path(@category), notice: "작성 완료되었습니다."
     else
       flash.now[:alert] = '글 작성에 실패하였습니다.'
-	  render 'categories/show'
+	  render :new, status: :unprocessable_entity
     end
   end
 
@@ -54,6 +56,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :content)
+      params.permit(:title, :content)
     end
 end

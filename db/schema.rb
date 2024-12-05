@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_29_033748) do
+ActiveRecord::Schema.define(version: 2024_11_30_142439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,10 +44,10 @@ ActiveRecord::Schema.define(version: 2024_11_29_033748) do
   end
 
   create_table "follows", force: :cascade do |t|
-    t.integer "follower_id"
-    t.integer "following_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -60,20 +60,20 @@ ActiveRecord::Schema.define(version: 2024_11_29_033748) do
   end
 
   create_table "lists", force: :cascade do |t|
-    t.bigint "category_id", null: false
     t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_lists_on_category_id"
+    t.index ["post_id"], name: "index_lists_on_post_id"
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
+    t.bigint "category_id", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.string "content"
+    t.index ["category_id"], name: "index_posts_on_category_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -87,9 +87,11 @@ ActiveRecord::Schema.define(version: 2024_11_29_033748) do
 
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "follows", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
-  add_foreign_key "lists", "categories"
+  add_foreign_key "lists", "posts"
   add_foreign_key "lists", "users"
+  add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users"
 end
