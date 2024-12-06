@@ -7,17 +7,22 @@ class CategoriesController < ApplicationController
 
   def show
 	  @category = Category.find(params[:id])
+	  @posts = @category.posts.order(created_at: :desc)
   end
 
   def new
-    @category = Category.find(params[:category_id])
-	@post = @category.posts.build
   end
 
   def edit
   end
 
   def create
+	    @category = Category.new(category_params)
+  if @category.save
+    redirect_to categories_path
+  else
+    render :new, status: :unprocessable_entity
+  end
   end
 
   private
