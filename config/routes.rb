@@ -2,11 +2,10 @@ Rails.application.routes.draw do
   devise_for :accounts
 	
 	resources :categories do
-		resources :posts
 		resources :lists
-	end
-	resources :posts, only: [:show] do
-		resources :comments, only: [:create, :destroy]
+		resources :posts do
+			resources :comments, only: [:create, :show, :destroy]
+		end
 	end
 		
 	resources :follows

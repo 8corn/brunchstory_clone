@@ -9,6 +9,9 @@ class PostsController < ApplicationController
   end
 
   def show
+	  @post = Post.find(params[:id])
+	  @comments = @post.comments
+	  @comment = @post.comments.build
   end
   
   def new
@@ -45,8 +48,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
+	@category = @post.category
     @post.destroy
-	redirect_to category_path(@post.category), notice: '글이 성공적으로 삭제되었습니다.'
+	redirect_to category_path(@category), notice: '글이 성공적으로 삭제되었습니다.'
   end
 
   private
