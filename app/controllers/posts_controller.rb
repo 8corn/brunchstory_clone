@@ -2,32 +2,34 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    category = Category.find(params[:category_id])
-    posts = category.posts.select(:id, :title, :content)
-    render json: { posts: posts }
+    @category = Category.find(params[:category_id])
+    @posts = @category.posts.order(created_at: :desc)
+    
+	render :index
   end
 
   def show
   end
-
-	def new
-	  @category = Category.find(params[:category_id])
-	  @post = @category.posts.build
-	end
+  
+  def new
+	@category = Category.find(params[:category_id])
+	@post = @category.posts.build
+  end
 
   def edit
   end
 
   def create
-    @category = Category.find(params[:category_id])
-    @post = @category.posts.build(post_params)
-	  
-		if @post.save
-		  redirect_to category_path(@category), notice: '글 작성을 성공하였습니다.'
-		else
-		  render :new, status: :unprocessable_entity
-		  flash.now[:alert] = '글 작성에 실패하였습니다.'
-	  end
+  	@category = Category.find(params[:category_id])
+  	@post = @category.posts.build(post_params)
+  	@post.account = current_account
+
+	if @post.save
+		redirect_to category_path(@category), notice: '글 작성을 성공하였습니다.'
+	else
+		flash.now[:alert] = '글 작성에 실패하였습니다.'
+		render :new, status: :unprocessable_entity
+	end
   end
 
   def update
@@ -44,10 +46,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+	redirect_to category_path(@post.category), notice: '글이 성공적으로 삭제되었습니다.'
   end
 
   private
@@ -56,6 +55,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.permit(:title, :content, :category_id)
+    	params.require(:post).permit(:title, :content)
     end
 end

@@ -12,8 +12,10 @@
 
 <p>
   <strong>User:</strong>
-  <%= @post.user_id %>
+  <%= @post.account.email %>
 </p>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+
+<%= link_to 'Edit', edit_category_post_path(@post.category, @post) %> |
+<%= link_to 'Back', category_path(@post.category) %>
+<%= link_to 'Delete', category_posts_path(@post.category, @post), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' } %>

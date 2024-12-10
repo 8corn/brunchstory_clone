@@ -8,9 +8,9 @@
 <%= link_to '글 작성', new_category_post_path(@category), class: 'write_btn' %>
 
 <h4>게시글 목록</h4>
-<% @category.posts.each do |post| %>
+<% @category.posts.order(created_at: :desc).each do |post| %>
   <div class="post">
-	  <h3><%= link_to post.title, category_post_path(@category, post) %></h3>
+	  <h5><%= link_to post.title, category_post_path(@category, post) %></h5>
 	  <p><%= truncate(post.content, length: 300) %></p>
 	</div>
 <% end %>
