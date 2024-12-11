@@ -17,10 +17,10 @@
 	<%= button_to '좋아요', like_category_post_path(@post.category, @post), method: :post, class: 'like-button' %>
 </div>
 
-<h5>댓글 <%= @comments.size %> 개</h5>
+<h5>댓글 <%= @comments.size - 1 %> 개</h5>
 <ul>
 	<% @comments.each do |comment| %>
-	<li><%= comment.content %></li>
+		<li><%= comment.content %></li>
 	<% end %>
 </ul>
 
