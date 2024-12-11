@@ -20,6 +20,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+	  @post = Post.find(params[:id])
   end
 
   def create
@@ -52,6 +53,19 @@ class PostsController < ApplicationController
     @post.destroy
 	redirect_to category_path(@category), notice: '글이 성공적으로 삭제되었습니다.'
   end
+	
+  def like
+    @post = Post.find(params[:id])
+	like = @post.likes.find_by(account_id: current_account.id)
+	  
+	if like.nil?
+    	@post.likes.create!(account_id: current_account.id)
+    	redirect_to category_post_path(@post.category, @post), notice: '좋아요를 눌렀습니다!'
+	else
+		like.destroy
+		redirect_to category_post_path(@post.category, @post), notice: '좋아요를 취소습니다.'
+	end
+  end
 
   private
     def set_post
@@ -59,6 +73,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-    	params.require(:post).permit(:title, :content)
+    	params.require(:post).permit(:title, :content, :likes)
     end
 end

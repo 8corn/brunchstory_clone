@@ -1,16 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>카테고리 :</strong>
-  <%= @category.name %>
-</p>
+<h4 class="my-4"><strong>카테고리 :</strong><%= @category.name %></h4>
 
 <%= link_to '글 작성', new_category_post_path(@category), class: 'write_btn' %>
 
 <h4>게시글 목록</h4>
-<% @category.posts.order(created_at: :desc).each do |post| %>
-  <div class="post">
-	  <h5><%= link_to post.title, category_post_path(@category, post) %></h5>
-	  <p><%= truncate(post.content, length: 300) %></p>
-	</div>
-<% end %>
+<div class="post-list">
+	<% @category.posts.order(created_at: :desc).each do |post| %>
+	  <div class="post-row">
+		  <h5><%= link_to post.title, category_post_path(@category, post) %></h5>
+		  <p><%= truncate(post.content, length: 300) %></p>
+		</div>
+	<% end %>
+</div>

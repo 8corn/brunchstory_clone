@@ -70,11 +70,23 @@
   margin: 20px 0;
   padding: 10px 15px;
   background-color: gray;
-  color: #fff;
-  text-decoration: none;
+  color: white;
   border-radius: 5px;
+}
 
-  &:hover {
-    background-color: #7FC7FE;
-  }
+.write_btn:hover {
+  background-color: #7FC7FE;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-row {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
 }

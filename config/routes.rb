@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 		resources :lists
 		resources :posts do
 			resources :comments, only: [:create, :show, :destroy]
+			member do
+				post 'like'
+			end
 		end
 	end
 		
